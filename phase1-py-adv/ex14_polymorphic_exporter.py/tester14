@@ -1,0 +1,90 @@
+from pathlib import Path
+import shutil
+
+# Import puntato alla soluzione didattica per la verifica immediata
+from polymorphic_exporter_sol import (
+    EsportatoreBase,
+    EsportatoreCSV,
+    EsportatoreJSON,
+)
+
+print("--- AVVIO VERIFICA LINEARE EX14 (Polymorphic Exporter) ---")
+
+cartella_test = Path("./tmp_test_export")
+cartella_test.mkdir(exist_ok=True)
+
+dati_validi = [
+    {"sensor": "PH", "val": 7.35},
+    {"sensor": "PH", "val": 7.40},
+]
+
+try:
+    # -------------------------------------------------------------------------
+    # TEST 1: Controllo Istanziazione Classe Base (Deve fallire)
+    # -------------------------------------------------------------------------
+    try:
+        istanza_astratta = EsportatoreBase(cartella_test / "astratto.dat")
+        print(
+            "[FAIL] Test 1: EsportatoreBase è stato istanziato, ma doveva essere astratto!"
+        )
+    except TypeError:
+        print(
+            "[OK] Test 1: EsportatoreBase non può essere istanziato direttamente (TypeError catturato)"
+        )
+
+    # -------------------------------------------------------------------------
+    # TEST 2: Esportazione CSV
+    # -------------------------------------------------------------------------
+    file_csv = cartella_test / "run.csv"
+    esportatore_csv = EsportatoreCSV(file_csv)
+    ritorno_csv = esportatore_csv.export(dati_validi)
+
+    if file_csv.exists() and ritorno_csv == file_csv:
+        contenuto = file_csv.read_text(encoding="utf-8")
+        if "sensor,val" in contenuto and "7.35" in contenuto:
+            print(
+                "[OK] Test 2: File CSV generato correttamente con header e dati"
+            )
+        else:
+            print(f"[FAIL] Test 2: Contenuto CSV errato:\n{contenuto}")
+    else:
+        print("[FAIL] Test 2: File CSV non creato o percorso errato")
+
+    # -------------------------------------------------------------------------
+    # TEST 3: Esportazione JSON
+    # -------------------------------------------------------------------------
+    file_json = cartella_test / "run.json"
+    esportatore_json = EsportatoreJSON(file_json)
+    ritorno_json = esportatore_json.export(dati_validi)
+
+    if file_json.exists() and ritorno_json == file_json:
+        contenuto = file_json.read_text(encoding="utf-8")
+        if '"sensor": "PH"' in contenuto and "7.4" in contenuto:
+            print("[OK] Test 3: File JSON generato correttamente formattato")
+        else:
+            print(f"[FAIL] Test 3: Contenuto JSON errato:\n{contenuto}")
+    else:
+        print("[FAIL] Test 3: File JSON non creato o percorso errato")
+
+    # -------------------------------------------------------------------------
+    # TEST 4: Controllo Validazione Lista Vuota (ValueError atteso)
+    # -------------------------------------------------------------------------
+    file_vuoto = cartella_test / "non_creare.json"
+    esportatore_vuoto = EsportatoreJSON(file_vuoto)
+
+    try:
+        esportatore_vuoto.export([])
+        print("[FAIL] Test 4: Lista vuota non ha sollevato ValueError")
+    except ValueError as err:
+        if not file_vuoto.exists():
+            print(
+                f"[OK] Test 4: ValueError sollevato correttamente ({err}) e nessun file creato"
+            )
+        else:
+            print("[FAIL] Test 4: ValueError sollevato MA il file è stato creato sul disco")
+
+finally:
+    # Pulizia totale delle cartelle temporanee di test
+    if cartella_test.exists():
+        shutil.rmtree(cartella_test)
+    print("--- VERIFICA EX14 COMPLETATA ---")

@@ -1,0 +1,86 @@
+===============================================================================
+FORMULARIO ESSENZIALE: CLASSI E METODI SPECIALI IN PYTHON
+===============================================================================
+
+1. ANATOMIA MINIMA DI UNA CLASSE
+-------------------------------------------------------------------------------
+class NomeStampino:
+    def __init__(self, parametro1, parametro2):
+        # self = puntatore all'oggetto specifico che stai creando
+        self.variabile1 = parametro1
+        self.variabile2 = parametro2
+
+    def funzione_normale(self, dato_in_piu):
+        # Azione esplicita: richiamabile dall'esterno con le parentesi ()
+        self.variabile1 += dato_in_piu
+        return self.variabile1
+
+
+2. COME SI USA DAL PROGRAMMA PRINCIPALE (MAIN / SCRIPT)
+-------------------------------------------------------------------------------
+# Creazione dell'oggetto (istanza):
+# Python chiama __init__ sotto il cofano, ma tu usi il NOME DELLA CLASSE:
+mio_oggetto = NomeStampino("TEST", 10.0)
+
+# Chiamata a funzione normale (con le parentesi tonde):
+risultato = mio_oggetto.funzione_normale(5.0)
+
+# Lettura/scrittura diretta di un dato interno:
+valore = mio_oggetto.variabile1
+mio_oggetto.variabile1 = 20.0
+
+
+3. TABELLA DEI METODI SPECIALI ("DUNDER": DOPPIO UNDERSCORE)
+-------------------------------------------------------------------------------
+Cosa scrivi nel tuo codice    Metodo chiamato dentro la classe     A cosa serve
+-------------------------------------------------------------------------------
+x = NomeClasse(a, b)       -> def __init__(self, a, b):          Costruisce l'oggetto
+len(x)                     -> def __len__(self):                 Restituisce un intero (conteggio)
+print(x)  oppure  str(x)   -> def __str__(self):                 Restituisce stringa leggibile
+repr(x)                    -> def __repr__(self):                Restituisce stringa per debug
+x == y                     -> def __eq__(self, altro):           Restituisce True/False
+
+
+4. IMPLEMENTAZIONE SCHELETRICA DEI METODI SPECIALI
+-------------------------------------------------------------------------------
+class ContenitoreDati:
+    def __init__(self, etichetta, lista_dati=None):
+        self.etichetta = etichetta
+        # Regola default mutabile: mai mettere lista_dati=[] nella firma
+        if lista_dati is None:
+            self.dati = []
+        else:
+            self.dati = list(lista_dati)
+
+    # 1. Quanti elementi ci sono? (abilita len(oggetto))
+    def __len__(self):
+        return len(self.dati)
+
+    # 2. Cosa vede l'operatore quando fa print(oggetto)?
+    def __str__(self):
+        return f"Sensore {self.etichetta}: {len(self)} elementi"
+
+    # 3. Cosa vede il programmatore nel log di errore / debug?
+    def __repr__(self):
+        return f"ContenitoreDati(etichetta='{self.etichetta}', dati={self.dati})"
+
+    # 4. Come stabiliamo se due oggetti sono uguali con '=='?
+    def __eq__(self, altro):
+        # Passo obbligatorio: verificare che l'altro sia della stessa classe
+        if not isinstance(altro, ContenitoreDati):
+            return False
+        # Condizioni logiche di uguaglianza:
+        stesso_nome = (self.etichetta == altro.etichetta)
+        stessi_dati = (self.dati == altro.dati)
+        return stesso_nome and stessi_dati
+
+
+5. REGOLA D'ORO MENTALE
+-------------------------------------------------------------------------------
+- Funzioni con __prima_e_dopo__: Non le chiami tu con il loro nome. 
+  Insegni a Python come reagire quando usi parole chiave native:
+  len(), print(), ==, str().
+
+- Funzioni senza underscore: Sono i tuoi comandi personalizzati. 
+  Le chiami tu con: nome_oggetto.tua_funzione().
+===============================================================================
