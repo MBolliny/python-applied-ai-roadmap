@@ -1,0 +1,2 @@
+Appunti del turno di notte:
+Verificare la connessione col server di staging alle ore 04:00.

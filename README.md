@@ -1,21 +1,24 @@
-# Applied Python Roadmap
-Personal progression workspace focused on modern Python engineering, moving from core language fundamentals toward laboratory automation, biomedical signal processing, and applied AI pipelines.
+# Python Applied AI Roadmap
 
+Il mio percorso in Python, dalle basi del linguaggio verso il machine learning applicato, in particolare all'ambito biomedico.
 
-## Scope & Approach
-This repository tracks my hands-on implementation work through sequential technical phases:
-- **Core & Systems Fundamentals:** Memory lifecycle (stack vs. heap), references vs. mutability, defensive I/O streaming, and fail-safe parsing.
-- **Data Structures & Optimization:** Algorithmic complexity, custom containers, and generator-based streaming for large telemetry streams.
-- **Biomedical & Signal Processing:** Time/frequency domain filtering, baseline correction, and sensor artifact rejection.
-- **Applied Pipeline Engineering:** Feature extraction and inference integrations for automated laboratory workflows.
+Sono uno studente di Ingegneria Informatica al Politecnico di Milano. Questa repo raccoglie gli esercizi in ordine cronologico, così si vede come si è sviluppato il lavoro.
 
-##  Repository Structure
-The workspace follows a phased layout:
+## Le due fasi
 
-- `phaseX-.../`: Contains focused implementation modules, core concept validation, and targeted edge-case testing.
-- Capstone projects (e.g., end-to-end telemetry pipelines) include their own local `README.md` inside their dedicated project folder with specific domain constraints and execution instructions.
+### 1. [Percorso autonomo](01-percorso-autonomo/)
+Prima del corso, da solo: le basi del linguaggio, la programmazione a oggetti, la manipolazione dei dati, l'algebra lineare e i primi modelli, fino a una piccola pipeline di dati da sensori.
 
+### 2. [Corso Python & ML, Politecnico di Milano](02-corso-python-ml-polimi/)
+Il corso *From fundamentals to ML, NN and secure federated learning* (novembre-dicembre 2026). Riprende gli stessi temi con più metodo: progettare prima di scrivere, gestire errori e verifiche, scegliere le strutture dati, e poi NumPy, PyTorch e Federated Learning.
 
-## Requirements & Environment
-- **Runtime:** Python 3.11+
-- **Standard Library First:** Core architecture prioritizes built-in modules (`pathlib`, `json`, `math`, `csv`) before introducing external dependencies.
+## Progetti
+
+- **Progetto finale del corso**: in una repo dedicata, in arrivo (dicembre 2026).
+
+## Struttura
+
+```
+01-percorso-autonomo/       esercizi e mini-progetti fatti da solo
+02-corso-python-ml-polimi/  esercizi del corso, una cartella per lezione
+```

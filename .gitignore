@@ -1,0 +1,10 @@
+# ambiente virtuale (si ricrea con requirements.txt, non si carica)
+.venv/
+# file di sistema e di editor
+.DS_Store
+.idea/
+.vscode/
+# file generati da Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

@@ -1,0 +1,24 @@
+from pathlib import Path
+
+def valida_e_filtra(cartella: Path) -> list[Path]:
+    """Dogana: filtra spazzatura, controlla dimensione ed estensione."""
+    file_validati = []
+    for f in cartella.iterdir():
+        if not f.is_file():
+            continue
+        # Salta file nascosti di sistema
+        if f.name.startswith("."):
+            continue
+
+        # Controllo file vuoto
+        if f.stat().st_size == 0:
+            raise CorruptedPayloadError(f"File vuoto rilevato: {f.name}")
+
+        # Controllo estensione supportata
+        if f.suffix.lower() not in PARSER_REGISTRY:
+            print(f"[DOGANA] Scartato formato non gestito: {f.name}")
+            continue
+
+        file_validati.append(f)
+    return file_validati
+

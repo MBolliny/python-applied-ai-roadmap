@@ -1,0 +1,37 @@
+[
+  {
+    "node_id": "INGEST-EDGE-04",
+    "cluster_region": "eu-central-1",
+    "max_workers": "8",
+    "retry_limit": "3",
+    "timeout_seconds": "30"
+  },
+  {
+    "order_id": "ORD-1001",
+    "customer_id": "CUST-901",
+    "amount": "149.50",
+    "currency": "EUR",
+    "status": "COMPLETED"
+  },
+  {
+    "order_id": "ORD-1002",
+    "customer_id": "CUST-342",
+    "amount": "89.00",
+    "currency": "EUR",
+    "status": "PENDING"
+  },
+  {
+    "order_id": "ORD-1003",
+    "customer_id": "CUST-118",
+    "amount": "1240.00",
+    "currency": "USD",
+    "status": "COMPLETED"
+  },
+  {
+    "order_id": "ORD-1004",
+    "customer_id": "CUST-705",
+    "amount": "45.20",
+    "currency": "EUR",
+    "status": "CANCELLED"
+  }
+]
