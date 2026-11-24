@@ -2,9 +2,8 @@ from medmnist import PneumoniaMNIST
 import sys
 from pathlib import Path
 
-
 DATI = Path(__file__).resolve().parent / "dati"
-ds = PneumoniaMNIST(split="train", download=True, root=DATI)
+ds = PneumoniaMNIST(split="train", download=False, root=DATI)
 
 print("Immagini nel train:", ds.imgs.shape[0])
 immagine = ds.imgs[0]
